@@ -67,7 +67,7 @@
 </template>
 
 <script setup>
-import { getVerifyCodeImg } from '../api/login.js';
+import { getVerifyCodeImg } from '../../api/login.js';
 import { ref, reactive } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
