@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomePage from '/src/views/HomePage.vue'
-import LoginPage from '/src/views/LoginPage.vue'
+import LoginPage from '/src/views/login/index.vue'
 import NProgress from 'nprogress'// progress bar
 import 'nprogress/nprogress.css'
 import { getToken } from '../utils/auth.js'

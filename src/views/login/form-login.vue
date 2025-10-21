@@ -1,17 +1,17 @@
 <template>
 	<el-form ref="loginFormRef" :model="loginForm" :rules="loginRules" @keyup.enter="onLogin">
 		<el-form-item prop="username">
-			<el-input v-model="loginForm.username" :prefix-icon="User" :placeholder="$t('app.username')"></el-input>
+			<el-input v-model="loginForm.username" :prefix-icon="User" placeholder="请输入用户名"></el-input>
 		</el-form-item>
 		<el-form-item prop="password">
-			<el-input v-model="loginForm.password" :prefix-icon="Lock" show-password :placeholder="$t('app.password')"></el-input>
+			<el-input v-model="loginForm.password" :prefix-icon="Lock" show-password placeholder="请输入用户密码"></el-input>
 		</el-form-item>
 		<el-form-item v-if="captchaVisible" prop="captcha" class="login-captcha">
-			<el-input v-model="loginForm.captcha" :placeholder="$t('app.captcha')" :prefix-icon="Key"></el-input>
+			<el-input v-model="loginForm.captcha" placeholder="请输入验证码" :prefix-icon="Key"></el-input>
 			<img :src="captchaBase64" @click="onCaptcha" />
 		</el-form-item>
 		<el-form-item class="login-button">
-			<el-button type="primary" @click="onLogin()">{{ $t('app.signIn') }}</el-button>
+			<el-button type="primary" @click="onLogin()">登录</el-button>
 		</el-form-item>
 	</el-form>
 </template>
@@ -19,56 +19,52 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
 import { User, Lock, Key } from '@element-plus/icons-vue'
-import { useUserStore } from '@/store/modules/user'
-import { useCaptchaApi, useCaptchaEnabledApi } from '@/api/auth'
 import { useRouter } from 'vue-router'
-import { useI18n } from 'vue-i18n'
-import constant from '@/utils/constant'
-import { sm2Encrypt } from '@/utils/smCrypto'
-import cache from '@/utils/cache'
-
-const userStore = useUserStore()
+import cache from '../../utils/cache'
+import constant from '../../utils/constant'
+import { login } from '../../api/user'
+import { getVerifyCodeImg } from '../../api/login'
 const router = useRouter()
-const { t } = useI18n()
 const loginFormRef = ref()
 const captchaBase64 = ref()
 
 const loginForm = reactive({
-	username: constant.env.PROD ? '' : 'admin',
-	password: constant.env.PROD ? '' : 'admin',
+	username:  '',
+	password:  '',
 	key: '',
 	captcha: ''
 })
 
 const loginRules = ref({
-	username: [{ required: true, message: t('required'), trigger: 'blur' }],
-	password: [{ required: true, message: t('required'), trigger: 'blur' }],
-	captcha: [{ required: true, message: t('required'), trigger: 'blur' }]
+	username: [{ required: true, message:'请输入用户名', trigger: 'blur' }],
+	password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+	captcha: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
 })
 
 // 是否显示验证码
-const captchaVisible = ref(false)
+const captchaVisible = ref(true)
 
 onMounted(() => {
-	onCaptchaEnabled()
+	//onCaptchaEnabled()
+	onCaptcha()
 })
 
-const onCaptchaEnabled = async () => {
-	const { data } = await useCaptchaEnabledApi()
-	captchaVisible.value = data
+// const onCaptchaEnabled = async () => {
+// 	const { data } = await useCaptchaEnabledApi()
+// 	captchaVisible.value = data
 
-	if (data) {
-		await onCaptcha()
-	}
-}
+// 	if (data) {
+// 		await onCaptcha()
+// 	}
+// }
 
 const onCaptcha = async () => {
-	const { data } = await useCaptchaApi()
+	const { data } = await getVerifyCodeImg()
 	if (data.enabled) {
 		captchaVisible.value = true
 	}
-	loginForm.key = data.key
-	captchaBase64.value = data.image
+	loginForm.key = data.uuid
+	captchaBase64.value = 'data:image/gif;base64,' +  data.img
 }
 
 const onLogin = () => {
@@ -80,16 +76,16 @@ const onLogin = () => {
 		// 重新封装登录数据
 		const loginData = {
 			username: loginForm.username,
-			password: sm2Encrypt(loginForm.password),
-			key: loginForm.key,
-			captcha: loginForm.captcha
+			password: loginForm.password,
+			uuid: loginForm.key,
+			code: loginForm.captcha
 		}
 
 		// 用户登录
-		userStore
-			.accountLoginAction(loginData)
+		login(loginData)
 			.then(() => {
-				router.push({ path: cache.getRedirect() || constant.loginPage })
+				alert(1)
+				router.push({ path: '/home' })
 			})
 			.catch(() => {
 				if (captchaVisible.value) {

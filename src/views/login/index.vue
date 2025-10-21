@@ -1,16 +1,16 @@
 <template>
 	<div class="login-container">
 		<div class="login-intro">
-			<h1>{{ $t('app.title') }}</h1>
+			<h1>统一用户中心</h1>
 			<div class="desc">
-				{{ $t('app.description') }}
+				提供统一的用户登录服务，支持多种登录方式，包括账号密码登录、手机验证码登录、第三方登录等。
 			</div>
-			<div class="login-bg"><img src="@/assets/login.png" alt="" /></div>
+			<div class="login-bg"><img src="@/assets/img/bg_login.png" alt="" /></div>
 		</div>
 		<div class="login-form">
 			<div class="login-title">
-				<el-button link :class="loginType === 'account' ? 'account' : ''" @click="loginSwitch('account')">{{ $t('app.signIn') }}</el-button>
-				<el-button link :class="loginType === 'mobile' ? 'account' : ''" @click="loginSwitch('mobile')">{{ $t('app.mobileSignIn') }}</el-button>
+				<el-button link :class="loginType === 'account' ? 'account' : ''" @click="loginSwitch('account')">登录</el-button>
+				<el-button link :class="loginType === 'mobile' ? 'account' : ''" @click="loginSwitch('mobile')">手机登录</el-button>
 			</div>
 			<account v-if="loginType === 'account'" />
 			<mobile v-if="loginType === 'mobile'" />
@@ -25,8 +25,7 @@ import Account from './form-login.vue'
 import Mobile from './mobile-login.vue'
 import Third from './social-login.vue'
 import { useRoute } from 'vue-router'
-import cache from '@/utils/cache'
-
+import cache from '../../utils/cache'
 // 登录类型
 const loginType = ref('account')
 const loginSwitch = (type: string) => {

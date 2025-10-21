@@ -1,3 +1,7 @@
+export function validatePhoneNumber(str) {
+    const reg = /^1[3456789]\d{9}$/
+    return reg.test(str)
+}
 /**
  * @param {string} path
  * @returns {Boolean}
@@ -81,16 +85,16 @@ export function isArray(arg) {
   }
   return Array.isArray(arg)
 }
-//ÊýÖµ·¶Î§Ð£Ñé
+//ï¿½ï¿½Öµï¿½ï¿½Î§Ð£ï¿½ï¿½
 export function checkNumber(rule, value, callback) {
   if (!value) {
-    return callback(new Error('ÊäÈë²»¿ÉÒÔÎª¿Õ'));
+    return callback(new Error('ï¿½ï¿½ï¿½ë²»ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½'));
   }
   setTimeout(() => {
     if (!Number(value)) {
     } else {
       if (value < 1 || value > 64) {
-        callback(new Error('ÊýÖµ·¶Î§Îª1-64'));
+        callback(new Error('ï¿½ï¿½Öµï¿½ï¿½Î§Îª1-64'));
       } else {
         callback();
       }
@@ -99,13 +103,13 @@ export function checkNumber(rule, value, callback) {
 }
 export function checkNumberAddr(rule, value, callback) {
   if (!value) {
-    return callback(new Error('ÊäÈë²»¿ÉÒÔÎª¿Õ'));
+    return callback(new Error('ï¿½ï¿½ï¿½ë²»ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½'));
   }
   setTimeout(() => {
     if (!Number(value)) {
     } else {
       if (value < 1 || value > 65536) {
-        callback(new Error('ÊýÖµ·¶Î§Îª1-65536'));
+        callback(new Error('ï¿½ï¿½Öµï¿½ï¿½Î§Îª1-65536'));
       } else {
         callback();
       }

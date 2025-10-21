@@ -2,20 +2,19 @@
 	<div class="login-third">
 		<el-divider>其他登录方式</el-divider>
 		<div class="third-btn">
-			<el-button link title="钉钉" @click="thirdLogin('dingtalk')"><ma-icon icon="icon-dingding" size="24" /></el-button>
-			<el-button link title="飞书" @click="thirdLogin('feishu')"><ma-icon icon="icon-feishu" size="24" /></el-button>
-			<el-button link title="微信" @click="thirdLogin('wechat_open')"><ma-icon icon="icon-weixin" size="24" /></el-button>
+			<el-button link title="钉钉" @click="thirdLogin('dingtalk')"><img src="./img/dingding.png" /></el-button>
+			<el-button link title="飞书" @click="thirdLogin('feishu')"><img src="./img/feishu.png" /></el-button>
+			<el-button link title="微信" @click="thirdLogin('wechat_open')"><img src="./img/weixin.png" /></el-button>
 		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import { useUserStore } from '@/store/modules/user'
-import cache from '@/utils/cache'
-
+import cache from '../../utils/cache'
+import constant from '../../utils/constant'
+import { smsSocial } from '../../api/user'
 const router = useRouter()
-const userStore = useUserStore()
 
 const thirdLogin = (openType: string) => {
 	// 请求接口
@@ -28,8 +27,8 @@ const thirdLogin = (openType: string) => {
 			return
 		}
 
-		// 第三方登录
-		userStore.thirdLoginAction(e.data).then(() => {
+		第三方登录
+		smsSocial(e.data).then(() => {
 			router.push({ path: cache.getRedirect() || constant.loginPage })
 		})
 	}
@@ -46,6 +45,10 @@ const thirdLogin = (openType: string) => {
 	.third-btn {
 		display: flex;
 		justify-content: space-around;
+		img{
+			width: 36px;
+			height: 36px;
+		}
 	}
 }
 </style>
