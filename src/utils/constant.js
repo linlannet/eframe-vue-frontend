@@ -1,4 +1,5 @@
+
 export default {
     loginPage: '/home',
-    thirdLoginUrl: '/login/thirdLogin',
+    thirdLoginUrl: import.meta.env.VITE_API_DOMAIN + '/login/social/render/',
 }

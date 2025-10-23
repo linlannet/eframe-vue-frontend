@@ -24,6 +24,9 @@ import cache from '../../utils/cache'
 import constant from '../../utils/constant'
 import { login } from '../../api/user'
 import { getVerifyCodeImg } from '../../api/login'
+import { useStore } from 'vuex';
+// 获取store变量
+const vueStore = useStore();
 const router = useRouter()
 const loginFormRef = ref()
 const captchaBase64 = ref()
@@ -82,10 +85,9 @@ const onLogin = () => {
 		}
 
 		// 用户登录
-		login(loginData)
+		vueStore.dispatch('Login_Action', loginData)
 			.then(() => {
-				alert(1)
-				router.push({ path: '/home' })
+				router.push({ path: cache.getRedirect() || constant.loginPage })
 			})
 			.catch(() => {
 				if (captchaVisible.value) {

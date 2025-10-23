@@ -23,7 +23,7 @@ export default ({ mode }) => {
       open: true,
       proxy: {
         '/dev_api': {
-          target: 'https://linlan.net/eframe_backend/',
+          target: 'http://172.30.0.100:8081/eframe_backend/',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/dev_api/, ''),
         },

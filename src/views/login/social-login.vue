@@ -13,7 +13,7 @@
 import { useRouter } from 'vue-router'
 import cache from '../../utils/cache'
 import constant from '../../utils/constant'
-import { smsSocial } from '../../api/user'
+import { socialLogin } from '../../api/user'
 const router = useRouter()
 
 const thirdLogin = (openType: string) => {
@@ -28,7 +28,7 @@ const thirdLogin = (openType: string) => {
 		}
 
 		第三方登录
-		smsSocial(e.data).then(() => {
+		socialLogin(e.data).then(() => {
 			router.push({ path: cache.getRedirect() || constant.loginPage })
 		})
 	}

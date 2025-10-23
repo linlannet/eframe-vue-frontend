@@ -5,7 +5,7 @@ export function smsSend(phoneNumber) {
     return request({
         url: "/login/otp/send",
         method: "post",
-        data: {
+        params: {
             mobile: phoneNumber
         }
     });
@@ -15,11 +15,11 @@ export function smsLogin(data) {
     return request({
         url: "/login/sms",
         method: "post",
-        data: dat
+        data: data
     });
 }
 // 第三方登录
-export function smsSocial(data) {
+export function socialLogin(data) {
     return request({
         url: "/login/social",
         method: "post",
