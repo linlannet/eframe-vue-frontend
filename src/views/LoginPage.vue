@@ -4,7 +4,7 @@
             <div class="loginbox">
                 <a-form id="loginForm" ref="loginFormRef" class="user-layout-login" :model="loginFormModel"
                     :rules="loginFormRules" :scrollToFirstError="true">
-                    <a-page-header title="企业一体化平台"/>
+                    <a-page-header title="麟览一体化支撑平台系统软件"/>
                     <!-- Form校验时，需要给a-form-item添加name属性 -->
                     <a-form-item name="username">
                         <!-- 双向绑定，必须使用v-model:value -->

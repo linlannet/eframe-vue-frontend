@@ -15,7 +15,7 @@ export default ({ mode }) => {
         '@': path.resolve(__dirname, './src'),
       },
     },
-    base: loadEnv(mode, process.cwd()).VITE_BASE_URL,
+    base: './',
     // root: '',
     server: {
       host: '0.0.0.0',

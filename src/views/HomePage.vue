@@ -14,7 +14,7 @@
             <MenuFoldOutlined v-else style="color: #fff;" />
           </div>
           <img src="../assets/img/logo.png" style="vertical-align: middle;padding-left: 20px;margin-top: -2px;" />
-          <span style="color: rgb(253, 253, 253); padding-left: 10px;font-size: 18px;font-weight: bold;">企业一体化平台</span>
+          <span style="color: rgb(253, 253, 253); padding-left: 10px;font-size: 18px;font-weight: bold;">麟览一体化支撑平台系统软件</span>
           <span style="color: rgb(253, 253, 253); padding-left: 20px">{{ headerInfo.currentFatherMenuTitle }}</span>
           <span style="color: rgb(253, 253, 253); padding-left: 10px">/</span>
           <span style="color: rgb(253, 253, 253); padding-left: 10px">{{ headerInfo.currentMenuTitle }}</span>
