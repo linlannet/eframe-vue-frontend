@@ -28,7 +28,7 @@ const thirdLogin = (openType: string) => {
 		}
 
 		// 第三方登录
-		socialLogin(e.data).then(() => {
+		socialLogin({bindFrom:'admin_work',...e.data}).then(() => {
 			router.push({ path: cache.getRedirect() || constant.loginPage })
 		})
 	}
