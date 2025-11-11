@@ -23,11 +23,11 @@ const thirdLogin = (openType: string) => {
 	window.open(url, '第三方登录', 'width=600, height=400, toolbar=no')
 
 	window.onmessage = function (e) {
-		if (!e.data?.openType) {
+		if (!e.data?.platformType) {
 			return
 		}
 
-		第三方登录
+		// 第三方登录
 		socialLogin(e.data).then(() => {
 			router.push({ path: cache.getRedirect() || constant.loginPage })
 		})

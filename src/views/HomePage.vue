@@ -7,14 +7,15 @@
         <a-col :span="12">
           <!-- 展开、关闭菜单列表图标 -->
           <div @click="() => (collapsed = !collapsed)" style="display: inline-block;
-    padding: 0 18px;
-    background: #0B98E7;
-    cursor: pointer;">
+              padding: 0 18px;
+              background: #0B98E7;
+              cursor: pointer;">
             <MenuUnfoldOutlined v-if="collapsed" style="color: #fff; " />
             <MenuFoldOutlined v-else style="color: #fff;" />
           </div>
           <img src="../assets/img/logo.png" style="vertical-align: middle;padding-left: 20px;margin-top: -2px;" />
-          <span style="color: rgb(253, 253, 253); padding-left: 10px;font-size: 18px;font-weight: bold;">麟览一体化支撑平台系统软件</span>
+          <span
+            style="color: rgb(253, 253, 253); padding-left: 10px;font-size: 18px;font-weight: bold;">麟览一体化支撑平台系统软件</span>
           <span style="color: rgb(253, 253, 253); padding-left: 20px">{{ headerInfo.currentFatherMenuTitle }}</span>
           <span style="color: rgb(253, 253, 253); padding-left: 10px">/</span>
           <span style="color: rgb(253, 253, 253); padding-left: 10px">{{ headerInfo.currentMenuTitle }}</span>
@@ -29,10 +30,10 @@
             </a>
             <template #overlay>
               <a-menu>
-                <!--                  <a-menu-item>-->
-                <!--                    <LocalIcon icon="SettingOutlined" style="padding-right: 10px" />-->
-                <!--                    <a @click="enterPersonalCenter" style="padding-right: 20px">个人中心</a>-->
-                <!--                  </a-menu-item>-->
+                <a-menu-item>
+                  <LocalIcon icon="SettingOutlined" style="padding-right: 10px" />
+                  <a @click="enterPersonalCenter" style="padding-right: 20px">账号绑定</a>
+                </a-menu-item>
                 <a-menu-item>
                   <LocalIcon icon="LogoutOutlined" style="padding-right: 10px" />
                   <a @click="logout" style="padding-right: 20px">退出登录</a>
@@ -48,10 +49,10 @@
       <!-- 左侧边栏 -->
       <a-layout-sider theme="light" v-model:collapsed="collapsed" :trigger="null" collapsible>
         <!-- 左侧边栏的菜单栏 -->
-        <a-menu v-model:selectedKeys="menuState.selectedMenuKeys" :open-keys="menuState.openedFaterMenuKeys" theme="light"
-                mode="inline" style="height: 100%; overflow: scroll; padding-top: 4px" @openChange="expandMenu">
+        <a-menu v-model:selectedKeys="menuState.selectedMenuKeys" :open-keys="menuState.openedFaterMenuKeys"
+          theme="light" mode="inline" style="height: 100%; overflow: scroll; padding-top: 4px" @openChange="expandMenu">
           <a-menu-item key="workbench"
-                       @click="clickMenuItem('HomePage', '/home', '主页', 'Workbench', '/home', '工作台', '/home')">
+            @click="clickMenuItem('HomePage', '/home', '主页', 'Workbench', '/home', '工作台', '/home')">
             <template #icon>
               <LocalIcon icon="HomeOutlined" />
             </template>
@@ -82,7 +83,7 @@
               </a-sub-menu>
               <!-- 二级菜单 -->
               <a-menu-item v-else :key="children.component"
-                           @click="clickMenuItem(router.name, router.path, router.meta.title, children.name || children.path, children.path, children.meta.title, children.name || children.component, children)">
+                @click="clickMenuItem(router.name, router.path, router.meta.title, children.name || children.path, children.path, children.meta.title, children.name || children.component, children)">
                 <template #icon>
                   <LocalIcon :icon="children.meta.icon" />
                 </template>
@@ -94,7 +95,7 @@
       </a-layout-sider>
       <!-- 右侧布局的主显示区 -->
       <a-layout-content
-          style="margin: 8px 0px 8px 8px; padding: 0px; min-height: 280px; height: 100%; overflow: scroll; background: white">
+        style="margin: 8px 0px 8px 8px; padding: 0px; min-height: 280px; height: 100%; overflow: scroll; background: white">
         <div class="card-container" style="padding: 20px;height:100%">
           <a-config-provider :locale="zhCN">
             <router-view></router-view>
@@ -234,22 +235,23 @@ const menuEvent = (menuPath, fatherTitle, menuTitle, menuComponent, menuItem) =>
 // 退出登录
 const logout = () => {
   vueStore
-      .dispatch('LogOut_Action')
-      .then(() => {
-        // 登陆成功，跳转到主页
-        vueRouter.push({ path: '/' }).catch(() => { });
-      })
-      .catch(() => {
-        // this.loading = false;
-        // if (this.captchaOnOff) {
-        //   this.getCode();
-        // }
-      });
+    .dispatch('LogOut_Action')
+    .then(() => {
+      // 登陆成功，跳转到主页
+      vueRouter.push({ path: '/' }).catch(() => { });
+    })
+    .catch(() => {
+      // this.loading = false;
+      // if (this.captchaOnOff) {
+      //   this.getCode();
+      // }
+    });
 };
 
 // 进入个人中心
 const enterPersonalCenter = () => {
-  LocalUtil.messageInfo('个人中心功能尚未实现！');
+  vueRouter.push({ name: 'thirdLogin' }).catch(() => { });
+  //LocalUtil.messageInfo('个人中心功能尚未实现！');
 };
 </script>
 
@@ -264,7 +266,8 @@ const enterPersonalCenter = () => {
   width: 1rem;
   height: 1rem;
 }
-.split-line{
+
+.split-line {
   border-bottom: 1px dashed #DCDFE6;
   margin: 16px 0px;
 }

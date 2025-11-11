@@ -29,6 +29,11 @@ const routes = [
                 component: () => import('/src/views/workbench/WorkbenchPage.vue'),
             },
             {
+                name: 'thirdLogin',
+                path: 'thirdLogin',
+                component: () => import('/src/views/profile/third-login.vue'),
+            },
+            {
                 // 进入主页后，二级路由直接显示工作台页面
                 path: '/',
                 component: () => import('/src/views/workbench/WorkbenchPage.vue')
