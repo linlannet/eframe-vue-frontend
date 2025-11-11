@@ -30,7 +30,8 @@ const thirdLogin = (openType: string) => {
 		}
 
 		// 第三方登录
-		vueStore.dispatch('thirdLogin_Action', e.data).then(() => {
+
+		vueStore.dispatch('thirdLogin_Action', {bindFrom:'admin_work',...e.data}).then(() => {
 			router.push({ path: cache.getRedirect() || constant.loginPage })
 		})
 	}
