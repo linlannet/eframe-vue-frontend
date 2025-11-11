@@ -26,7 +26,7 @@
 				<third />
 			</div>
 			<div class="copyright">
-				 Copyright © 2025-2035 EFRAME. All rights reserved.
+				 Copyright © 2023-2025 EFRAME. All rights reserved.
 			</div>
 		</div>
 	</div>
