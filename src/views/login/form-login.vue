@@ -22,7 +22,6 @@ import { User, Lock, Key } from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router'
 import cache from '../../utils/cache'
 import constant from '../../utils/constant'
-import { login } from '../../api/user'
 import { getVerifyCodeImg } from '../../api/login'
 import { useStore } from 'vuex';
 // 获取store变量
