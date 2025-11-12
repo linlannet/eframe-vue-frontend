@@ -28,7 +28,7 @@
 import { reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import constant from '../../utils/constant'
-import { socialBind,socialUnbind } from '../../api/user'
+import { socialBind,socialUnbind,getBindList } from '../../api/user'
 
 let thirdList = reactive([
 	{ openType: 'dingtalk', username: '-', status: 0 },
@@ -37,7 +37,7 @@ let thirdList = reactive([
 ])
 
 const getThirdList = async () => {
-	const res = await useThirdListApi()
+	const res = await getBindList()
 
 	thirdList.forEach(third => {
 		// 初始化

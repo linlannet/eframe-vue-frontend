@@ -23,9 +23,10 @@ export default ({ mode }) => {
       open: true,
       proxy: {
         '/dev_api': {
-        //   target: 'https://linlan.net/eframe_backend/',
-          target: 'http://localhost:8081/eframe_backend/',
+          target: 'https://linlan.net/eframe_backend/',
+          //   target: 'http://localhost:8081/eframe_backend/',
           changeOrigin: true,
+          secure:false,
           rewrite: (path) => path.replace(/^\/dev_api/, ''),
         },
       },
