@@ -8,17 +8,18 @@
 				<el-text v-else-if="scope.row.openType === 'wechat_open'"><img  class="icon-third" src="../login/img/weixin.png" /> 微信</el-text>
 			</template>
 		</el-table-column>
-		<el-table-column prop="username" label="昵称" align="center" />
+		<el-table-column prop="username" label="用户名" align="center" />
+		<el-table-column prop="nickName" label="昵称" align="center" />
 		<el-table-column prop="status" label="状态" align="center">
 			<template #default="scope">
-				<el-tag v-if="scope.row.status === 0" type="danger">未绑定</el-tag>
-				<el-tag v-else type="success">已绑定</el-tag>
+				<el-tag v-if="scope.row.status === 0" type="success">已绑定</el-tag>
+				<el-tag v-else type="danger">未绑定</el-tag>
 			</template>
 		</el-table-column>
 		<el-table-column label="操作" align="center" width="100">
 			<template #default="scope">
-				<el-button v-if="scope.row.status === 0" type="primary" link @click="handleBind(scope.row.openType)">绑定</el-button>
-				<el-button v-else type="danger" link @click="handleUnBind(scope.row.openType)">解绑</el-button>
+				<el-button v-if="scope.row.status === 1" type="danger" link @click="handleBind(scope.row.openType)">绑定</el-button>
+				<el-button v-else type="primary" link @click="handleUnBind(scope.row)">解绑</el-button>
 			</template>
 		</el-table-column>
 	</el-table>
@@ -28,26 +29,28 @@
 import { reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import constant from '../../utils/constant'
-import { socialBind,socialUnbind,getBindList } from '../../api/user'
+import { socialBind,socialUnbind,getMyBindList } from '../../api/user'
 
 let thirdList = reactive([
-	{ openType: 'dingtalk', username: '-', status: 0 },
-	{ openType: 'feishu', username: '-', status: 0 },
-	{ openType: 'wechat_open', username: '-', status: 0 }
+	{ openType: 'dingtalk', username: '-', nickName: '-', status: 1 },
+	{ openType: 'feishu', username: '-', nickName: '-', status: 1 },
+	{ openType: 'wechat_open', username: '-', nickName: '-', status: 1 }
 ])
 
 const getThirdList = async () => {
-	const res = await getBindList()
+	const res = await getMyBindList()
 
 	thirdList.forEach(third => {
 		// 初始化
-		third.status = 0
+		third.status = 1
 		third.username = '-'
 
-		res.data.forEach((item: any) => {
+		res.data.list.forEach((item: any) => {
 			if (third.openType === item.openType) {
-				third.status = 1
+				third.status = 0
 				third.username = item.username
+				third.nickName = item.spare1
+
 			}
 		})
 	})
@@ -80,8 +83,8 @@ const handleBind = (openType: string) => {
 }
 
 // 解绑
-const handleUnBind = (openType: string) => {
-	socialUnbind(openType).then(() => {
+const handleUnBind = (item: any) => {
+	socialUnbind({platformType:item.openType,bindFrom:'admin_work'}).then(() => {
 		ElMessage.success({
 			message: '操作成功',
 			duration: 500,

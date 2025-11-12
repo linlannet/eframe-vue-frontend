@@ -74,9 +74,9 @@ export function updatePwd(oldPwd, newPwd) {
     });
 }
 // 获取用户绑定列表
-export const getBindList = () => {
+export const getMyBindList = () => {
   return request({
-    url: '/api/third/memberbind/list',
+    url: '/api/third/memberbind/mylist',
     method: 'get'
   })
 }
