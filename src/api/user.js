@@ -73,7 +73,7 @@ export function updatePwd(oldPwd, newPwd) {
         }
     });
 }
-// 获取首页路由
+// 获取用户绑定列表
 export const getBindList = () => {
   return request({
     url: '/api/third/memberbind/list',
