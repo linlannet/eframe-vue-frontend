@@ -1,4 +1,5 @@
 import { login, logout, getInfo } from '../../api/login';
+import { smsLogin,socialLogin } from '../../api/user';
 import { getToken, setToken, removeToken } from '/src/utils/auth';
 
 const user = {
@@ -35,10 +36,6 @@ const user = {
     actions: {
         // 登录
         Login_Action({ commit }, loginInfo) {
-            const username = loginInfo.username;
-            const password = loginInfo.password;
-            const code = loginInfo.code;
-            const uuid = loginInfo.uuid;
             return new Promise((resolve, reject) => {
                 login(loginInfo)
                     .then((res) => {
@@ -51,7 +48,32 @@ const user = {
                     });
             });
         },
-
+        smsLogin_Action({ commit }, loginInfo) {
+            return new Promise((resolve, reject) => {
+                smsLogin(loginInfo)
+                    .then((res) => {
+                        setToken(res.data.token);
+                        commit('SET_TOKEN', res.data.token);
+                        resolve();
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    });
+            });
+        },
+        thirdLogin_Action({ commit }, loginInfo) {
+            return new Promise((resolve, reject) => {
+                socialLogin(loginInfo)
+                    .then((res) => {
+                        setToken(res.data.token);
+                        commit('SET_TOKEN', res.data.token);
+                        resolve();
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    });
+            });
+        },
         // 获取用户信息
         GetUserInfo_Action({ commit, state }) {
             return new Promise((resolve, reject) => {

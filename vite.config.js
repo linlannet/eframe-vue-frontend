@@ -15,7 +15,7 @@ export default ({ mode }) => {
         '@': path.resolve(__dirname, './src'),
       },
     },
-    base: loadEnv(mode, process.cwd()).VITE_BASE_URL,
+    base: './',
     // root: '',
     server: {
       host: '0.0.0.0',
@@ -23,9 +23,10 @@ export default ({ mode }) => {
       open: true,
       proxy: {
         '/dev_api': {
-          // target: 'http://localhost:8901',
-          target: 'http://localhost:8081/',
+          target: 'https://linlan.net/eframe_backend/',
+          //   target: 'http://localhost:8081/eframe_backend/',
           changeOrigin: true,
+          secure:false,
           rewrite: (path) => path.replace(/^\/dev_api/, ''),
         },
       },

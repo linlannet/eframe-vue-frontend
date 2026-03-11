@@ -1,3 +1,7 @@
+export function validatePhoneNumber(str) {
+    const reg = /^1[3456789]\d{9}$/
+    return reg.test(str)
+}
 /**
  * @param {string} path
  * @returns {Boolean}
@@ -81,16 +85,16 @@ export function isArray(arg) {
   }
   return Array.isArray(arg)
 }
-//��ֵ��ΧУ��
+//��ֵ��ΧУ��
 export function checkNumber(rule, value, callback) {
   if (!value) {
-    return callback(new Error('���벻����Ϊ��'));
+    return callback(new Error('���벻����Ϊ��'));
   }
   setTimeout(() => {
     if (!Number(value)) {
     } else {
       if (value < 1 || value > 64) {
-        callback(new Error('��ֵ��ΧΪ1-64'));
+        callback(new Error('��ֵ��ΧΪ1-64'));
       } else {
         callback();
       }
@@ -99,16 +103,49 @@ export function checkNumber(rule, value, callback) {
 }
 export function checkNumberAddr(rule, value, callback) {
   if (!value) {
-    return callback(new Error('���벻����Ϊ��'));
+    return callback(new Error('���벻����Ϊ��'));
   }
   setTimeout(() => {
     if (!Number(value)) {
     } else {
       if (value < 1 || value > 65536) {
-        callback(new Error('��ֵ��ΧΪ1-65536'));
+        callback(new Error('��ֵ��ΧΪ1-65536'));
       } else {
         callback();
       }
     }
   }, 100);
+}
+
+/**
+ * 密码强度验证
+ * @param {*} rule 
+ * @param {string} value 
+ * @param {Function} callback 
+ */
+export function validatePassword(rule, value, callback) {
+  if (!value) {
+    return callback(new Error('请输入密码'));
+  }
+  
+  // 密码长度要求：8-20位
+  if (value.length < 8 || value.length > 20) {
+    return callback(new Error('密码长度应为8-20位'));
+  }
+  
+  // 密码复杂度要求：必须包含字母和数字
+  const hasLetter = /[a-zA-Z]/.test(value);
+  const hasNumber = /\d/.test(value);
+  
+  if (!hasLetter || !hasNumber) {
+    return callback(new Error('密码必须包含字母和数字'));
+  }
+  
+  // 可选：特殊字符检查（可根据需求开启）
+  // const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(value);
+  // if (!hasSpecialChar) {
+  //   return callback(new Error('密码必须包含特殊字符'));
+  // }
+  
+  callback();
 }

@@ -19,14 +19,14 @@
         </ul>
       </el-col>
       <el-col :span="12">
-        <img :src="errGif" width="313" height="428" alt="Girl has dropped her ice cream.">
+        <!-- <img :src="errGif" width="313" height="428" alt="Girl has dropped her ice cream."> -->
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
-import errGif from '@/assets/401_images/401.gif'
+//import errGif from '@/assets/401_images/401.gif'
 
 export default {
   name: 'Page401',
